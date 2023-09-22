@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Интернет-магазин</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #33343b;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .auth, .cart {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .store-info {
+            display: block;
+            margin-left: 20px;
+        }
+
+        .store-info .slogan {
+            margin-left: 50px;
+        }
+
+        .store-name {
+            font-size: 35px;
+            margin-right: 1px;
+            margin-left: 20px;
+            color: white;
+        }
+
+        .catalog-btn {
+            display: flex;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 50px;
+            background: darkred;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .search-form input {
+            flex-grow: 1;
+            width: 600px;
+            height: 30px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-form {
+            position: relative;
+        }
+
+        .search-form input {
+            padding-right: 40px;
+        }
+
+        .search-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .search-button::before {
+            content: "\1F50D";
+            font-size: 18px;
+        }
+
+        .search-button:hover, .search-button:focus {
+            outline: none;
+            opacity: 0.8;
+        }
+
+        .product-container {
+            display: flex;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .product-images {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .thumbnail-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .thumbnail-images .thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            margin-left: 30px;
+            cursor: pointer;
+            border-radius: 3px;
+            transform: scale(1.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .thumbnail-images .thumbnail:hover {
+            transform: scale(1.5);
+        }
+
+        .product-details {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .product-price {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        .product-description {
+            margin-top: 20px;
+        }
+
+        .add-to-cart-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: darkred;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #a70000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="store-info">
+            <h1 class="store-name"><strong>Simple Things</strong></h1>
+            <p class="slogan" style="color: white;">Let your dreams come true</p>
+        </div>
+
+        <button class="catalog-btn">Каталог</button>
+
+        <form class="search-form catalog-style">
+            <input type="text" placeholder="Поиск...">
+            <button type="submit" class="search-button"></button>
+        </form>
+
+        <div class="user-info">
+             <a class="auth" href="/login_page">Вход</a>
+             <a class="auth" href="/create_game_user">Регистрация</a>
+            <a class="cart" href="#">Корзина (0)</a>
+        </div>
+    </header>
+
+    <div class="product-container">
+        <div class="product-images">
+            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="main-image">
+            <div class="thumbnail-images">
+                {% for image in product.images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ product.name }}" class="thumbnail" onclick="changeImage('{{ image.image.url }}')">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="product-details">
+            <h3>{{ product.name }}</h3>
+            <p class="product-price">Price: {{ product.price }}</p>
+            <div class="product-description">
+                <p>{{ product.description }}</p>
+            </div>
+            <button class="add-to-cart-button">Добавить в корзину</button>
+            <h2>Комментарии:</h2>
+            <ul>
+                {% for comment in comments %}
+                    <li>{{ comment.text }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Оставить комментарий:</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const mainImage = document.querySelector('.main-image');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                mainImage.src = thumbnail.src;
+            });
+        });
+    </script>
+</body>
+</html>

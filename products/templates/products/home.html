@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-container {
+            display: flex;
+            justify-content: left;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            max-width: 400px;
+        }
+
+        .auth, .cart {
+             color: white;
+             text-decoration: none;
+             margin-right: 20px;
+        }
+
+        .menu-item {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        header {
+            background-color: #33343b;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .store-info {
+            display: block;
+            margin-left: 20px;
+        }
+
+        .store-info .slogan {
+            margin-left: 50px;
+        }
+
+        .store-name {
+            font-size: 35px;
+            margin-right: 1px;
+            margin-left: 20px;
+        }
+
+        .catalog-btn {
+            display: flex;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 50px;
+            background: darkred;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .search-form input {
+            flex-grow: 1;
+            width: 600px;
+            height: 30px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-form {
+            position: relative;
+        }
+
+        .search-form input {
+            padding-right: 40px;
+        }
+
+        .search-button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .search-button::before {
+            content: "\1F50D";
+            font-size: 18px;
+        }
+
+        .search-button:hover, .search-button:focus {
+            outline: none;
+            opacity: 0.8;
+        }
+
+        .welcome {
+            text-align: left;
+            margin-top: 20px;
+            margin-left: 20px;
+            font-size: 32px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="store-info">
+            <h1 class="store-name"><strong>Simple Things</strong></h1>
+            <p class="slogan">Let your dreams come true</p>
+        </div>
+
+        <button class="catalog-btn">Каталог</button>
+
+        <form class="search-form catalog-style">
+            <input type="text" placeholder="Поиск...">
+            <button type="submit" class="search-button"></button>
+        </form>
+
+        <div class="user-info">
+            {% if 'login' in request.session %}
+
+            <a class="auth" href="/logout">Выход</a>
+            {% else %}
+            <a class="auth" href="/login_page">Вход</a>
+             <a class="auth" href="/create_game_user">Регистрация</a>
+            {% endif %}
+
+            <a class="cart" href="/cart">Корзина (0)</a>
+        </div>
+    </header>
+
+    <h1 class="welcome">Добро пожаловать в каталог нашей продукции</h1>
+    <div class="menu-container">
+        <ul>
+            {% for category in categories %}
+                <li class="menu-item"><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
