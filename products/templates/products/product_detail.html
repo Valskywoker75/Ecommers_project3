@@ -196,9 +196,18 @@
         </form>
 
         <div class="user-info">
+            {% if 'login' in request.session %}
+            <a class="auth" href="/logout">Выход</a>
+            {% else %}
              <a class="auth" href="/login_page">Вход</a>
              <a class="auth" href="/create_game_user">Регистрация</a>
-            <a class="cart" href="#">Корзина (0)</a>
+            {% endif %}
+             <a class="cart" href="/cart">Корзина ( {% if 'cart' in request.session %}
+                    {{cart_count}}
+                {% else %}
+                0
+                {% endif %}
+                )</a>
         </div>
     </header>
 
@@ -217,7 +226,12 @@
             <div class="product-description">
                 <p>{{ product.description }}</p>
             </div>
-            <button class="add-to-cart-button">Добавить в корзину</button>
+            {% if 'login' in request.session %}
+            <!--<button class="add-to-cart-button">Добавить в корзину</button>-->
+            <a href="/cart/{{product.id}}" class="add-to-cart-button">Добавить в корзину</a>
+            {% else %}
+            <p style="color: red">Авторизуйтесь, чтобы иметь возможность добавлять товар в карзину</p>
+            {% endif %}
             <h2>Комментарии:</h2>
             <ul>
                 {% for comment in comments %}

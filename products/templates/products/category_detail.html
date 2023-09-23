@@ -156,9 +156,18 @@
         </form>
 
         <div class="user-info">
+            {% if 'login' in request.session %}
+            <a class="auth" href="/logout">Выход</a>
+            {% else %}
              <a class="auth" href="/login_page">Вход</a>
              <a class="auth" href="/create_game_user">Регистрация</a>
-            <a class="cart" href="#">Корзина (0)</a>
+            {% endif %}
+            <a class="cart" href="/cart">Корзина ( {% if 'cart' in request.session %}
+                    {{cart_count}}
+                {% else %}
+                0
+                {% endif %}
+                )</a>
         </div>
     </header>
 

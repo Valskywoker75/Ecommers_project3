@@ -3,33 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalog</title>
+    <title>{{ category.name }}</title>
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        .menu-container {
-            display: block;
-            justify-content: left;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 100px auto;
-        }
-
-        .auth, .cart {
-             color: white;
-             text-decoration: none;
-             margin-right: 20px;
-        }
-
-        .menu-item {
-            font-size: 22px;
-            margin: 10px 0;
         }
 
         header {
@@ -111,47 +90,53 @@
             opacity: 0.8;
         }
 
-        .welcome {
-            text-align: center;
-            margin-top: 20px;
-            margin-left: 20px;
-            font-size: 32px;
-        }
-        ul li {
-
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-        }
-
-        .footer-content {
+        .product-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: 20px 0;
+            padding-left: 20px;
         }
 
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-        }
-
-        .footer-links li {
-            margin-right: 40px;
-        }
-
-        .footer-links a {
+        .auth, .cart {
             color: white;
+            text-decoration: none;
+            margin-right: 20px;
         }
 
-        .footer-info {
+        .product-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 10px;
+            height: 400px;
+        }
+
+        .product-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 5px;
+        }
+
+        .details-button {
+            margin-top: auto;
             text-align: center;
-            margin-top: 20px;
         }
 
     </style>
@@ -174,12 +159,10 @@
             {% if 'login' in request.session %}
             <a class="auth" href="/logout">Выход</a>
             {% else %}
-            <a class="auth" href="/login_page">Вход</a><br />
+             <a class="auth" href="/login_page">Вход</a>
              <a class="auth" href="/create_game_user">Регистрация</a>
             {% endif %}
-
-            <a class="cart" href="/cart">Корзина (
-                {% if 'cart' in request.session %}
+            <a class="cart" href="/cart">Корзина ( {% if 'cart' in request.session %}
                     {{cart_count}}
                 {% else %}
                 0
@@ -188,28 +171,14 @@
         </div>
     </header>
 
-    <h1 class="welcome">Добро пожаловать в каталог нашей продукции</h1>
-    <div class="menu-container">
+    <h1>Корзина</h1>
+    <div class="product-container">
         <ul>
-            {% for category in categories %}
-                <li class="menu-item"><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
+            {% for product in cart_list %}
+              <li> {{product.id}} {{product.name}} - {{product.price}}</li>
             {% endfor %}
+            <li><a href="/cartclear">Очистить корзину</a></li>
         </ul>
     </div>
-    <footer>
-        <div class="footer-content">
-             <div class="footer-links">
-                <ul>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-info">
-            &copy; 2023 Ваша компания. Все права защищены.
-        </div>
-    </footer>
 </body>
 </html>
