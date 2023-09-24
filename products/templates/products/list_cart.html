@@ -7,6 +7,9 @@
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
+            background-image: url('https://celes.club/uploads/posts/2022-05/thumbs/1653405969_61-celes-club-p-fon-dlya-magazina-tekhniki-krasivie-65.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             margin: 0;
             padding: 0;
         }
@@ -138,6 +141,44 @@
             margin-top: auto;
             text-align: center;
         }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .footer-links li {
+            margin-right: 40px;
+        }
+
+        .footer-links a {
+            color: white;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 20px;
+        }
 
     </style>
 </head>
@@ -159,7 +200,7 @@
             {% if 'login' in request.session %}
             <a class="auth" href="/logout">Выход</a>
             {% else %}
-             <a class="auth" href="/login_page">Вход</a>
+             <a class="auth" href="/login_page">Вход</a><br>
              <a class="auth" href="/create_game_user">Регистрация</a>
             {% endif %}
             <a class="cart" href="/cart">Корзина ( {% if 'cart' in request.session %}
@@ -180,5 +221,20 @@
             <li><a href="/cartclear">Очистить корзину</a></li>
         </ul>
     </div>
+    <footer>
+        <div class="footer-content">
+             <div class="footer-links">
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-info">
+            &copy; 2023 Ваша компания. Все права защищены.
+        </div>
+    </footer>
 </body>
 </html>

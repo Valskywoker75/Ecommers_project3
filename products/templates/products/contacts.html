@@ -21,7 +21,7 @@
             border-radius: 5px;
             padding: 20px;
             max-width: 500px;
-            margin: 100px auto;
+            margin: 100px;
         }
 
         .auth, .cart {
@@ -181,7 +181,7 @@
             <a class="auth" href="/logout">Выход</a>
             {% else %}
             <a class="auth" href="/login_page">Вход</a><br>
-            <a class="auth" href="/create_game_user">Регистрация</a>
+             <a class="auth" href="/create_game_user">Регистрация</a>
             {% endif %}
 
             <a class="cart" href="/cart">Корзина (
@@ -194,14 +194,12 @@
         </div>
     </header>
 
-    <h1 class="welcome">Добро пожаловать в каталог нашей продукции</h1>
-    <div class="menu-container">
-        <ul>
-            {% for category in categories %}
-                <li class="menu-item"><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+    <h1 class="welcome">Наши контакты</h1>
+    <p>Отдел продаж: +380677235529</p>
+    <p>Отдел по работе с корпоративными клиентами: +380677235529</p>
+    <p>Отдел по работе с клиентами из других звездных систем: +380677235529</p>
+    <p>Отдел маркетинга: +380677235529</p>
+    <p>Email: knaub.vladislav.2004@gmail.com</p>
     <footer>
         <div class="footer-content">
              <div class="footer-links">
