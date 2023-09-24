@@ -96,3 +96,6 @@ def cartclear(request):
     if 'cart' in request.session:
         del request.session['cart']
     return redirect('/')
+
+def contact(request):
+    return render(request, 'products/contacts.html')
