@@ -179,6 +179,9 @@
             text-align: center;
             margin-top: 20px;
         }
+        .home {
+            color:white;
+        }
 
 
     </style>
@@ -186,7 +189,9 @@
 <body>
     <header>
         <div class="store-info">
-            <h1 class="store-name"><strong>Simple Things</strong></h1>
+            <a class="home" href="{% url 'index' %}">
+                <h1 class="store-name" ><strong>Simple Things</strong></h1>
+            </a>
             <p class="slogan">Let your dreams come true</p>
         </div>
 
@@ -233,7 +238,7 @@
         <div class="footer-content">
              <div class="footer-links">
                 <ul>
-                    <li><a href="">Главная</a></li>
+                    <li><a class="home" href="{% url 'index' %}">Главная</a></li>
                     <li><a href="#">О нас</a></li>
                     <li><a href="#">Услуги</a></li>
                     <li><a href="{% url 'contact' %}">Контакты</a></li>
