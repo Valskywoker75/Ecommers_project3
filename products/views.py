@@ -36,6 +36,8 @@ def cart(request):
         carts = request.session['cart'].split(',')
         cart_list = Product.objects.filter(id__in=carts)
         return render(request, 'products/list_cart.html',{'request': request, 'cart_list':cart_list, 'cart_count':cart_count})
+    else:
+        return render(request, 'products/list_cart.html',{'request': request, 'cart_count': cart_count})
 
 
 def product_detail(request, product_id):
